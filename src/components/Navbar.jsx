@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -9,7 +9,6 @@ const Navbar = () => {
   const [activeNav, setActiveNav] = useState(null);
   const [hoverIndex, setHoverIndex] = useState(null);
   const { language, toggleLanguage, t } = useLanguage();
-  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,16 +20,18 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { key: 'solutions', path: '/#solutions' },
-    { key: 'creative', path: '/#creative' },
-    { key: 'infrastructure', path: '/#infrastructure' },
-    { key: 'about', path: '/#about' },
-    { key: 'contact', path: '/#contact' },
+    { key: 'solutions', anchor: 'solutions' },
+    { key: 'creative', anchor: 'creative' },
+    { key: 'infrastructure', anchor: 'infrastructure' },
+    { key: 'about', anchor: 'about' },
+    { key: 'contact', anchor: 'contact' },
   ];
 
   const handleNavClick = (key) => {
     setActiveNav(key);
     setTimeout(() => setActiveNav(null), 600);
+    // Close mobile menu if open
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -43,21 +44,23 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20">
-          <Link
-            to="/"
+          {/* Logo */}
+          <a
+            href="#"
             className="relative text-2xl font-serif font-bold text-white tracking-tight group"
           >
             <span className="relative inline-block transition-all duration-300 group-hover:tracking-widest">
               AGENCY
             </span>
             <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-white to-transparent group-hover:w-full transition-all duration-500" />
-          </Link>
+          </a>
 
+          {/* Desktop menu */}
           <div className="hidden lg:flex items-center space-x-2">
             {navItems.map((item, index) => (
               <a
                 key={item.key}
-                href={item.path}
+                href={`#${item.anchor}`}
                 onMouseEnter={() => setHoverIndex(index)}
                 onMouseLeave={() => setHoverIndex(null)}
                 onClick={() => handleNavClick(item.key)}
@@ -81,6 +84,7 @@ const Navbar = () => {
               </a>
             ))}
 
+            {/* Language toggle */}
             <button
               onClick={toggleLanguage}
               className="ml-6 relative px-4 py-2 text-sm font-sans font-medium text-white uppercase tracking-wider overflow-hidden group"
@@ -96,6 +100,7 @@ const Navbar = () => {
             </button>
           </div>
 
+          {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden text-white p-2 relative group"
@@ -106,17 +111,15 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-charcoal-900 border-t border-white/10 animate-in fade-in slide-in-from-top-2 duration-300">
           <div className="px-6 py-6 space-y-3">
             {navItems.map((item, index) => (
               <a
                 key={item.key}
-                href={item.path}
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  handleNavClick(item.key);
-                }}
+                href={`#${item.anchor}`}
+                onClick={() => handleNavClick(item.key)}
                 className="block px-4 py-3 text-sm font-sans text-gray-300 hover:text-white uppercase tracking-wider rounded-lg hover:bg-white/5 transition-all duration-300 relative group overflow-hidden"
               >
                 <span className="relative z-10">{t(`nav.${item.key}`)}</span>
