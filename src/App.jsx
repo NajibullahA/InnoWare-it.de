@@ -9,12 +9,12 @@ function App() {
   return (
     <LanguageProvider>
       <Router>
-        <Layout>
-          <Routes>
+        <Routes>
+          <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/services/:serviceId" element={<ServiceDetail />} />
-          </Routes>
-        </Layout>
+          </Route>
+        </Routes>
       </Router>
     </LanguageProvider>
   );
