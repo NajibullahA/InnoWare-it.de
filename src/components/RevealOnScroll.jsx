@@ -1,10 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const RevealOnScroll = ({ children, delay = 0 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
+  const { hash } = useLocation();
 
   useEffect(() => {
+    // If navigating via anchor, show immediately
+    if (hash) {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -12,21 +20,13 @@ const RevealOnScroll = ({ children, delay = 0 }) => {
           observer.unobserve(entry.target);
         }
       },
-      {
-        threshold: 0.1,
-      }
+      { threshold: 0.1 }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    if (ref.current) observer.observe(ref.current);
 
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, [delay]);
+    return () => observer.disconnect();
+  }, [delay, hash]);
 
   return (
     <div
