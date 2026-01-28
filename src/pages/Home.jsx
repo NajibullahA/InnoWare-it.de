@@ -2,8 +2,8 @@ import React from 'react';
 
 const Home = () => {
   return (
-    <div style={{ padding: '100px', background: 'red', color: 'white' }}>
-      <h1>HOME IS RENDERING</h1>
+    <div style={{ height: '100vh', background: 'red', color: 'white' }}>
+      <h1>HOME IS WORKING</h1>
     </div>
   );
 };
