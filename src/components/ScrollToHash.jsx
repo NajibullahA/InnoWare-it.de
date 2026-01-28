@@ -1,24 +1,19 @@
+// src/components/ScrollToHash.jsx
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const ScrollToHash = () => {
+export default function ScrollToHash() {
   const { hash } = useLocation();
 
   useEffect(() => {
     if (!hash) return;
-
-    const id = hash.replace('#', '');
-    const el = document.getElementById(id);
-
+    const el = document.getElementById(hash.substring(1));
     if (el) {
-      // small delay ensures DOM is fully rendered
       setTimeout(() => {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
+        el.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
     }
   }, [hash]);
 
   return null;
-};
-
-export default ScrollToHash;
+}
