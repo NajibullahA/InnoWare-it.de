@@ -36,7 +36,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div id="top">
       <DynamicHeroBackground variant="default" particles={true}>
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
           <div className="relative max-w-5xl mx-auto px-6 text-center">
