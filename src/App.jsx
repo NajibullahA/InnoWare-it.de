@@ -4,6 +4,8 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import ServiceDetail from './pages/ServiceDetail';
+import Impressum from './pages/Impressum';
+import Datenschutz from './pages/Datenschutz';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/services/:serviceId" element={<ServiceDetail />} />
+            <Route path="/impressum" element={<Impressum />} />
+            <Route path="/datenschutz" element={<Datenschutz />} />
           </Route>
         </Routes>
       </Router>
