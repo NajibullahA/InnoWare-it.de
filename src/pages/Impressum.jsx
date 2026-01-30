@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguage } from 'react-i18next';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Impressum = () => {
   const { t } = useLanguage();
