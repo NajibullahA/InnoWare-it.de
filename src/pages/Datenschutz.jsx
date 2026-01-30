@@ -1,8 +1,8 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useLanguage } from 'react-i18next';
 
 const Datenschutz = () => {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
 
   return (
     <div className="container mx-auto px-4 py-12">
